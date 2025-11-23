@@ -10,7 +10,7 @@ import java.util.UUID;
 public class User {
     @Id
     @Column(length = 36)
-    private String token = UUID.randomUUID().toString();
+    private String id = UUID.randomUUID().toString();
 
     @Column(nullable = false, unique = true)
     private String email;
@@ -56,5 +56,9 @@ public class User {
         this.apps = apps;
         this.isActive = true;
         this.createdTime = LocalDateTime.now();
+    }
+
+    public String getId() {
+        return id;
     }
 }

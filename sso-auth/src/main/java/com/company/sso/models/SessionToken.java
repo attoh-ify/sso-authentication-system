@@ -32,4 +32,8 @@ public class SessionToken {
     public LocalDateTime getExpiry() {
         return this.expiry;
     }
+
+    public String getUserId() {
+        return user.getId();
+    }
 }
