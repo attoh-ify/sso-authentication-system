@@ -1,6 +1,7 @@
 package com.company.sso.dtos;
 
 import java.util.List;
+import java.util.Map;
 
 public class CreateUserRequest {
     private String email;
@@ -8,8 +9,8 @@ public class CreateUserRequest {
     private String lname;
     private String password;
     private String tenantId;
-    private List<String> roles;
-    private List<String> apps;
+    private String role;
+    private Map<String, String> apps;
 
     public CreateUserRequest() {}
 
@@ -53,19 +54,19 @@ public class CreateUserRequest {
         this.tenantId = tenantId;
     }
 
-    public List<String> getRoles() {
-        return roles;
+    public String getRole() {
+        return role;
     }
 
-    public void setRoles(List<String> roles) {
-        this.roles = roles;
+    public void setRole(String role) {
+        this.role = role;
     }
 
-    public List<String> getApps() {
+    public Map<String, String> getApps() {
         return apps;
     }
 
-    public void setApps(List<String> apps) {
+    public void setApps(Map<String, String> apps) {
         this.apps = apps;
     }
 }

@@ -2,7 +2,7 @@ package com.company.sso.models;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Entity
@@ -27,15 +27,14 @@ public class User {
     @Column(nullable = false)
     private String tenantId;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
-    @Column(name = "role")
-    private List<String> roles;
+    @Column(nullable = false)
+    private String role;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "user_apps", joinColumns = @JoinColumn(name = "user_id"))
+    @MapKeyColumn(name = "url")
     @Column(name = "app")
-    private List<String> apps;
+    private Map<String, String> apps;
 
     @Column(nullable = false)
     private boolean isActive = false;
@@ -46,13 +45,13 @@ public class User {
     public User() {}
 
     public User(String email, String fname, String lname, String passwordHash,
-                String tenantId, List<String> roles, List<String> apps) {
+                String tenantId, String role, Map<String, String> apps) {
         this.email = email;
         this.fname = fname;
         this.lname = lname;
         this.passwordHash = passwordHash;
         this.tenantId = tenantId;
-        this.roles = roles;
+        this.role = role;
         this.apps = apps;
         this.isActive = true;
         this.createdTime = LocalDateTime.now();
@@ -60,5 +59,41 @@ public class User {
 
     public String getId() {
         return id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getFname() {
+        return fname;
+    }
+
+    public String getLname() {
+        return lname;
+    }
+
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    public String getTenantId() {
+        return tenantId;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public Map<String, String> getApps() {
+        return apps;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public LocalDateTime getCreatedTime() {
+        return createdTime;
     }
 }

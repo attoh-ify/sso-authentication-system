@@ -13,9 +13,8 @@ public class UserDAO {
     @PersistenceContext(unitName = "SSOUnit")
     private EntityManager em;
 
-    public User create(User user) {
+    public void create(User user) {
         em.persist(user);
-        return user;
     }
 
     public User update(User user) {

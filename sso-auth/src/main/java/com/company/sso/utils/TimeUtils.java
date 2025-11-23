@@ -3,7 +3,7 @@ package com.company.sso.utils;
 import java.time.LocalDateTime;
 
 public class TimeUtils {
-    private TimeUtils() {}
+    public TimeUtils() {}
 
     public static LocalDateTime now() {
         return LocalDateTime.now();
@@ -15,5 +15,9 @@ public class TimeUtils {
 
     public static boolean isExpired(LocalDateTime expiry) {
         return LocalDateTime.now().isAfter(expiry);
+    }
+
+    public LocalDateTime generateExpiry() {
+        return LocalDateTime.now().plusMinutes(24 * 60);
     }
 }

@@ -1,5 +1,6 @@
 package com.company.sso.dtos;
 
+import com.company.sso.models.User;
 import java.time.LocalDateTime;
 
 public class LoginResponse {
@@ -7,47 +8,31 @@ public class LoginResponse {
     private String token;
     private LocalDateTime expiry;
     private String twoFactorAuth;
-    private UserResponse user;
+    private User user;
 
-    public LoginResponse() {}
+    public LoginResponse(String status, String token, LocalDateTime expiry, String twoFactorAuth, User user) {
+        this.status = status;
+        this.token = token;
+        this.expiry = expiry;
+        this.twoFactorAuth = twoFactorAuth;
+        this.user = user;
+    }
 
     public String getStatus() {
         return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     public String getToken() {
         return token;
     }
 
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-    public LocalDateTime getExpiry() {
-        return expiry;
-    }
-
-    public void setExpiry(LocalDateTime expiry) {
-        this.expiry = expiry;
-    }
+    public LocalDateTime getExpiry() { return expiry; }
 
     public String getTwoFactorAuth() {
         return twoFactorAuth;
     }
 
-    public void setTwoFactorAuth(String twoFactorAuth) {
-        this.twoFactorAuth = twoFactorAuth;
-    }
-
-    public UserResponse getUser() {
+    public User getUser() {
         return user;
-    }
-
-    public void setUser(UserResponse user) {
-        this.user = user;
     }
 }

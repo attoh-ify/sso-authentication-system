@@ -14,9 +14,8 @@ public class TokenDAO {
     @PersistenceContext(unitName = "SSOUnit")
     private EntityManager em;
 
-    public SessionToken create(SessionToken token) {
+    public void create(SessionToken token) {
         em.persist(token);
-        return token;
     }
 
     public SessionToken findByToken(String tokenStr) {
