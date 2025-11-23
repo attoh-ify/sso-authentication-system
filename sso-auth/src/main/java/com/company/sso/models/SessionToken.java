@@ -28,4 +28,8 @@ public class SessionToken {
         this.expiry = expiry;
         this.createdTime = LocalDateTime.now();
     }
+
+    public LocalDateTime getExpiry() {
+        return this.expiry;
+    }
 }

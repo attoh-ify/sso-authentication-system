@@ -1,0 +1,43 @@
+package com.company.sso.dao;
+
+import com.company.sso.models.SessionToken;
+
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import java.time.LocalDateTime;
+import java.util.List;
+
+@Stateless
+public class TokenDAO {
+    @PersistenceContext(unitName = "SSOUnit")
+    private EntityManager em;
+
+    public SessionToken create(SessionToken token) {
+        em.persist(token);
+        return token;
+    }
+
+    public SessionToken findByToken(String tokenStr) {
+        TypedQuery<SessionToken> query = em.createQuery(
+                "SELECT t FROM SessionToken t WHERE t.token = :token", SessionToken.class
+        );
+        query.setParameter("token", tokenStr);
+        List<SessionToken> result = query.getResultList();
+        return result.isEmpty() ? null : result.get(0);
+    }
+
+    public boolean isValid(String tokenStr) {
+        SessionToken token = findByToken(tokenStr);
+        if (token == null) return false;
+        return token.getExpiry().isAfter(LocalDateTime.now());
+    }
+
+    public void delete(SessionToken token) {
+        if (!em.contains(token)) {
+            token = em.merge(token);
+        }
+        em.remove(token);
+    }
+}
