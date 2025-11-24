@@ -27,16 +27,10 @@ public class TokenDAO {
         return result.isEmpty() ? null : result.get(0);
     }
 
-    public boolean isValid(String tokenStr) {
+    public void deleteToken(String tokenStr) {
         SessionToken token = findByToken(tokenStr);
-        if (token == null) return false;
-        return token.getExpiry().isAfter(LocalDateTime.now());
-    }
-
-    public void delete(SessionToken token) {
-        if (!em.contains(token)) {
-            token = em.merge(token);
+        if (token != null) {
+            em.remove(token);
         }
-        em.remove(token);
     }
 }

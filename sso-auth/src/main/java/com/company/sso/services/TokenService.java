@@ -23,4 +23,8 @@ public class TokenService {
     public SessionToken validateToken(String token) {
         return tokenDAO.findByToken(token);
     }
+
+    public void deleteToken(String token) {
+        tokenDAO.deleteToken(token);
+    }
 }
