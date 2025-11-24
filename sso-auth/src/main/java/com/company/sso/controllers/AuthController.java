@@ -1,14 +1,15 @@
 package com.company.sso.controllers;
 
+import com.company.sso.dao.TokenDAO;
 import com.company.sso.dtos.LoginRequest;
 import com.company.sso.dtos.LoginResponse;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import com.company.sso.models.SessionToken;
+import com.company.sso.dtos.LogoutResponse;
+import com.company.sso.filters.Secured;
 import com.company.sso.services.AuthService;
-import com.company.sso.services.TokenService;
 
 @Path("/sso/auth")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -18,7 +19,7 @@ public class AuthController {
     private AuthService authService;
 
     @Inject
-    private TokenService tokenService;
+    private TokenDAO tokenDAO;
 
     @POST
     @Path("/login")
@@ -29,11 +30,9 @@ public class AuthController {
 
     @POST
     @Path("/logout")
+    @Secured
     public Response logout(@HeaderParam("Authorization") String authHeader) {
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            String token = authHeader.substring("Bearer ".length());
-            tokenService.deleteToken(token);
-        }
-        return Response.ok("{\"status\":\"SUCCESS\",\"message\":\"Token valid\"}").build();
+        LogoutResponse logoutResponse = authService.logout(authHeader);
+        return Response.ok(logoutResponse).build();
     }
 }

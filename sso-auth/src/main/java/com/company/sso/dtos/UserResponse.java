@@ -3,7 +3,7 @@ package com.company.sso.dtos;
 import com.company.sso.models.User;
 
 import java.time.LocalDateTime;
-import java.util.Map;
+import java.util.List;
 
 public class UserResponse {
     private String email;
@@ -12,7 +12,7 @@ public class UserResponse {
     private String tenantId;
     private boolean isActive;
     private String role;
-    private Map<String, String> apps;
+    private List<String> apps;
     private LocalDateTime createdTime;
 
     public UserResponse(User user) {
@@ -25,36 +25,4 @@ public class UserResponse {
         this.apps = user.getApps();
         this.createdTime = user.getCreatedTime();
     }
-
-//    public String getEmail() {
-//        return email;
-//    }
-//
-//    public String getFname() {
-//        return fname;
-//    }
-//
-//    public String getLname() {
-//        return lname;
-//    }
-//
-//    public String getTenantId() {
-//        return tenantId;
-//    }
-//
-//    public boolean isActive() {
-//        return isActive;
-//    }
-//
-//    public String getRole() {
-//        return role;
-//    }
-//
-//    public Map<String, String> getApps() {
-//        return apps;
-//    }
-//
-//    public LocalDateTime getCreatedTime() {
-//        return createdTime;
-//    }
 }

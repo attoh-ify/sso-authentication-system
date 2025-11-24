@@ -17,22 +17,4 @@ public class LoginResponse {
         this.twoFactorAuth = twoFactorAuth;
         this.user = user;
     }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public LocalDateTime getExpiry() { return expiry; }
-
-    public String getTwoFactorAuth() {
-        return twoFactorAuth;
-    }
-
-    public User getUser() {
-        return user;
-    }
 }

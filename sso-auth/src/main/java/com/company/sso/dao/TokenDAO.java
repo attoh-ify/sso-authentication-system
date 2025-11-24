@@ -20,9 +20,10 @@ public class TokenDAO {
 
     public SessionToken findByToken(String tokenStr) {
         TypedQuery<SessionToken> query = em.createQuery(
-                "SELECT t FROM SessionToken t WHERE t.token = :token", SessionToken.class
+                "SELECT t FROM SessionToken t WHERE t.token = :token AND t.expiry > :now", SessionToken.class
         );
         query.setParameter("token", tokenStr);
+        query.setParameter("now", LocalDateTime.now());
         List<SessionToken> result = query.getResultList();
         return result.isEmpty() ? null : result.get(0);
     }

@@ -8,6 +8,7 @@ import javax.ws.rs.ext.Provider;
 import java.io.IOException;
 
 @Provider
+//  It’s annotated with @Provider, so it’s automatically applied to all endpoints
 public class LoggingFilter implements ContainerRequestFilter, ContainerResponseFilter {
     @Override
     public void filter(ContainerRequestContext requestContext) throws IOException {

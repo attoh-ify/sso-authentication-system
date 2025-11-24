@@ -11,8 +11,9 @@ public class SessionToken {
     @Column(length = 36)
     private String token = UUID.randomUUID().toString();
 
-    @Column(name = "user_id", nullable = false)
-    private String userId;
+    @ManyToOne
+    @JoinColumn(name="user_id", nullable=false)
+    private User user;
 
     @Column(nullable = false)
     private LocalDateTime expiry;
@@ -22,8 +23,8 @@ public class SessionToken {
 
     public SessionToken() {}
 
-    public SessionToken(String userId, LocalDateTime expiry) {
-        this.userId = userId;
+    public SessionToken(User user, LocalDateTime expiry) {
+        this.user = user;
         this.expiry = expiry;
         this.createdTime = LocalDateTime.now();
     }
@@ -33,7 +34,7 @@ public class SessionToken {
     }
 
     public String getUserId() {
-        return userId;
+        return user.getId();
     }
 
     public String getToken() {

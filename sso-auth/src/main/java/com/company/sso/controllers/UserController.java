@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import com.company.sso.exceptions.NotFoundException;
 import com.company.sso.models.User;
 import com.company.sso.services.UserService;
 
@@ -31,9 +32,7 @@ public class UserController {
     public Response getUser(@PathParam("id") String id) {
         User user = userDAO.findById(id);
         if (user == null) {
-            return Response.status(Response.Status.NOT_FOUND)
-                    .entity("{\"status\":\"FAILED\", \"message\":\"User not found\"}")
-                    .build();
+            throw new NotFoundException("User not found");
         }
         return Response.ok(new UserResponse(user)).build();
     }

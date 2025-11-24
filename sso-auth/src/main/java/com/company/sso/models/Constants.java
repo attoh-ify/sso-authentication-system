@@ -16,18 +16,18 @@ public class Constants {
             "ADMIN"
     );
 
-    public static final Map<String, String> APPS = Map.of(
-            "ecms", "http://example.com/ecms/",
-            "emcc", "http://example.com/emcc/",
-            "rms", "http://example.com/ams/",
-            "ims", "http://example.com/ims/",
-            "conferencing", "http://example.com/conferencing/",
-            "govmail", "http://example.com/govmail/"
+    public static final List<String> APPS = Arrays.asList(
+            "ecms",
+            "emcc",
+            "rms",
+            "ims",
+            "conferencing",
+            "govmail"
     );
 
     public static final Map<String, List<String>> TENANT_APPS = Map.of(
-            "govtest", List.of("govmail", "conferencing"),
-            "comp1", List.of("ecms", "emcc", "rms"),
-            "comp2", List.of("govmail", "conferencing")
+            "govtest", List.of(APPS.get(5), APPS.get(4)),
+            "comp1", List.of(APPS.get(0), APPS.get(1), APPS.get(2)),
+            "comp2", List.of(APPS.get(5), APPS.get(3))
     );
 }

@@ -1,11 +1,14 @@
 package com.company.sso.services;
 
+import com.company.sso.dao.TokenDAO;
 import com.company.sso.dao.UserDAO;
 import com.company.sso.dtos.LoginRequest;
 import com.company.sso.dtos.LoginResponse;
+import com.company.sso.dtos.LogoutResponse;
 import com.company.sso.exceptions.UnauthorizedException;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
+
 import com.company.sso.models.SessionToken;
 import com.company.sso.models.User;
 import com.company.sso.utils.PasswordUtils;
@@ -18,6 +21,9 @@ public class AuthService {
     @Inject
     private TokenService tokenService;
 
+    @Inject
+    private TokenDAO tokenDAO;
+
     public LoginResponse login(LoginRequest req) {
         User user = userDAO.findByEmail(req.getEmail());
 
@@ -25,7 +31,7 @@ public class AuthService {
             throw new UnauthorizedException("Invalid email or password");
         }
 
-        SessionToken token = tokenService.issueToken(user.getId());
+        SessionToken token = tokenService.issueToken(user);
 
         return new LoginResponse(
                 "SUCCESS",
@@ -34,5 +40,11 @@ public class AuthService {
                 null,
                 user
         );
+    }
+
+    public LogoutResponse logout(String authHeader) {
+        String token = authHeader.substring("Bearer ".length());
+        tokenDAO.deleteToken(token);
+        return new LogoutResponse("SUCCESS", "Token valid");
     }
 }

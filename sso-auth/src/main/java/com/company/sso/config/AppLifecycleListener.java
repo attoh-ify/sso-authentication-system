@@ -17,3 +17,16 @@ public class AppLifecycleListener implements ServletContextListener {
         System.out.println("[Auth] Service shutting down...");
     }
 }
+
+
+//Logs startup events
+//
+//Good place for initializing:
+//
+//database connections
+//
+//background jobs
+//
+//caches
+//
+//config loading

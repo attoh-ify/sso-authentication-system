@@ -7,7 +7,7 @@ import javax.inject.Inject;
 import javax.enterprise.context.RequestScoped;
 import com.company.sso.models.User;
 import com.company.sso.utils.PasswordUtils;
-import java.util.Map;
+import java.util.List;
 
 @RequestScoped
 public class UserService {
@@ -18,23 +18,25 @@ public class UserService {
     private TenantService tenantService;
 
     public User createUser(CreateUserRequest req) {
-        if (!tenantService.isValidTenant(req.getTenantId())) {
+        String tenantId = req.getTenantId();
+        String role = req.getRole();
+        if (!tenantService.isValidTenant(tenantId)) {
             throw new AppException("Invalid tenant", 404);
         }
 
-        if (!tenantService.isValidRole(req.getRole())) {
+        if (!tenantService.isValidRole(role)) {
             throw new AppException("Invalid tenant", 404);
         }
 
-        Map<String, String> apps = tenantService.getValidApps(req.getTenantId());
+        List<String> apps = tenantService.getValidApps(tenantId);
 
         User user = new User(
                 req.getEmail(),
                 req.getFname(),
                 req.getLname(),
                 PasswordUtils.hashPassword(req.getPassword()),
-                req.getTenantId(),
-                req.getRole(),
+                tenantId,
+                role,
                 apps
         );
         userDAO.create(user);
