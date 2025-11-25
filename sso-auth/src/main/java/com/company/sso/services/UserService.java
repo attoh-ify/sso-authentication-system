@@ -21,11 +21,11 @@ public class UserService {
         String tenantId = req.getTenantId();
         String role = req.getRole();
         if (!tenantService.isValidTenant(tenantId)) {
-            throw new AppException("Invalid tenant", 404);
+            throw new AppException("Invalid tenantId", 404);
         }
 
         if (!tenantService.isValidRole(role)) {
-            throw new AppException("Invalid tenant", 404);
+            throw new AppException("Invalid role", 404);
         }
 
         List<String> apps = tenantService.getValidApps(tenantId);

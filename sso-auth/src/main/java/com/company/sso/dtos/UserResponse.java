@@ -25,4 +25,36 @@ public class UserResponse {
         this.apps = user.getApps();
         this.createdTime = user.getCreatedTime();
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getFname() {
+        return fname;
+    }
+
+    public String getLname() {
+        return lname;
+    }
+
+    public String getTenantId() {
+        return tenantId;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public List<String> getApps() {
+        return apps;
+    }
+
+    public LocalDateTime getCreatedTime() {
+        return createdTime;
+    }
 }

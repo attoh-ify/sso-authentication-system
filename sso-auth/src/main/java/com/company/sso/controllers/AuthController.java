@@ -28,7 +28,7 @@ public class AuthController {
         return Response.ok(loginResponse).build();
     }
 
-    @POST
+    @GET
     @Path("/logout")
     @Secured
     public Response logout(@HeaderParam("Authorization") String authHeader) {

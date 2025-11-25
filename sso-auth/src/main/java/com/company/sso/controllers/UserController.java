@@ -11,6 +11,9 @@ import com.company.sso.exceptions.NotFoundException;
 import com.company.sso.models.User;
 import com.company.sso.services.UserService;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Path("/sso/users")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
@@ -28,12 +31,27 @@ public class UserController {
         return Response.ok(response).build();
     }
 
-    @Path("/{id}")
-    public Response getUser(@PathParam("id") String id) {
-        User user = userDAO.findById(id);
+    @Path("/{email}")
+    @GET
+    public Response getUser(@PathParam("email") String email) {
+        User user = userDAO.findByEmail(email);
         if (user == null) {
             throw new NotFoundException("User not found");
         }
         return Response.ok(new UserResponse(user)).build();
+    }
+
+    @Path("/")
+    @GET
+    public Response getAllUsers() {
+        List<User> users = userDAO.findAllUsers();
+        if (users == null) {
+            throw new NotFoundException("User not found");
+        }
+        List<UserResponse> user_responses = new ArrayList<>();
+        for (User user: users) {
+            user_responses.add(new UserResponse(user));
+        }
+        return Response.ok(user_responses).build();
     }
 }

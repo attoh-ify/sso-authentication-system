@@ -27,7 +27,7 @@ public class UserDAO {
 
     public User findByEmail(String email) {
         TypedQuery<User> query = em.createQuery(
-                "SELECT u FROM User u WHERE u.email = :email", User.class
+                "SELECT u FROM User u LEFT JOIN FETCH u.apps WHERE u.email = :email", User.class
         );
         query.setParameter("email", email);
         List<User> result = query.getResultList();
@@ -36,7 +36,7 @@ public class UserDAO {
 
     public User findByTenant(String tenantId) {
         TypedQuery<User> query = em.createQuery(
-                "SELECT u FROM User u WHERE u.tenantId = :tenantId", User.class
+                "SELECT u FROM User u LEFT JOIN FETCH u.apps WHERE u.tenantId = :tenantId", User.class
         );
         query.setParameter("tenantId", tenantId);
         List<User> result = query.getResultList();
@@ -48,5 +48,12 @@ public class UserDAO {
             user = em.merge(user);
         }
         em.remove(user);
+    }
+
+    public List<User> findAllUsers() {
+        TypedQuery<User> query = em.createQuery(
+                "SELECT u FROM User u LEFT JOIN FETCH u.apps", User.class
+        );
+        return query.getResultList();
     }
 }

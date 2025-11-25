@@ -9,7 +9,6 @@
     <!-- Enable your interceptors -->
     <interceptors>
         <class>com.company.sso.interceptors.LoggingInterceptor</class>
-        <class>com.company.sso.interceptors.TransactionInterceptor</class>
     </interceptors>
 
 </beans>
