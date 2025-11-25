@@ -11,4 +11,12 @@ public class LogoutResponse {
         this.status = status;
         this.message = message;
     }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public String getMessage() {
+        return message;
+    }
 }
